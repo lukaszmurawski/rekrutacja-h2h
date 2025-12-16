@@ -6,7 +6,11 @@ RUN apk add --no-cache \
     curl \
     postgresql-dev \
     libzip-dev \
-    libxml2-dev
+    libxml2-dev \
+    $PHPIZE_DEPS
+
+RUN pecl install pcov \
+    && docker-php-ext-enable pcov
 
 RUN docker-php-ext-install \
     pdo \
@@ -15,6 +19,9 @@ RUN docker-php-ext-install \
     zip \
     opcache \
     xml
+
+RUN echo "pcov.enabled=1" > /usr/local/etc/php/conf.d/pcov.ini \
+ && echo "pcov.directory=/var/www/html/src" >> /usr/local/etc/php/conf.d/pcov.ini
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 

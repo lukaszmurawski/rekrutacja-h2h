@@ -9,9 +9,11 @@
         "ext-iconv": "*",
         "doctrine/dbal": "^4.4",
         "doctrine/doctrine-bundle": "^2.18",
+        "doctrine/doctrine-migrations-bundle": "^3.7",
         "doctrine/migrations": "^3.9",
         "doctrine/orm": "^3.5",
         "nelmio/api-doc-bundle": "^5.8",
+        "phpdocumentor/reflection-docblock": "^5.6",
         "phpstan/phpdoc-parser": "^2.3",
         "symfony/asset": "7.4.*",
         "symfony/console": "7.4.*",
@@ -19,8 +21,12 @@
         "symfony/flex": "^2",
         "symfony/framework-bundle": "7.4.*",
         "symfony/messenger": "7.4.*",
+        "symfony/property-access": "7.4.*",
+        "symfony/property-info": "7.4.*",
         "symfony/runtime": "7.4.*",
+        "symfony/serializer": "7.4.*",
         "symfony/twig-bundle": "7.4.*",
+        "symfony/validator": "7.4.*",
         "symfony/yaml": "7.4.*"
     },
     "config": {
@@ -62,6 +68,19 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "auto-setup-test-db": [
+            "@php bin/console doctrine:database:create --if-not-exists --env=test",
+            "@php bin/console doctrine:migrations:migrate --env=test --no-interaction"
+        ],
+        "phpunit": "vendor/bin/phpunit -c phpunit.dist.xml",
+        "coverage": [
+            "@auto-setup-test-db",
+            "@phpunit --coverage-html var/coverage"
+        ],
+        "test": [
+            "@auto-setup-test-db",
+            "@phpunit"
         ]
     },
     "conflict": {
@@ -74,7 +93,11 @@
         }
     },
     "require-dev": {
+        "dama/doctrine-test-bundle": "^8.4",
+        "doctrine/doctrine-fixtures-bundle": "^4.3",
         "phpunit/phpunit": "^11.5",
+        "symfony/browser-kit": "7.4.*",
+        "symfony/maker-bundle": "^1.65",
         "symfony/phpunit-bridge": "^8.0"
     }
 }

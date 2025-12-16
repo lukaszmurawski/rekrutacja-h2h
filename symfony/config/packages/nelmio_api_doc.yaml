@@ -9,3 +9,15 @@ nelmio_api_doc:
         default:
             path_patterns:
                 - ^/api(?!/doc$)
+    
+    models:
+      names:
+          - alias: SubmitContactRequest
+            type: App\UserInterface\Web\Request\SubmitContactRequest
+            groups: [ 'Default' ]
+          - alias: ContactSubmissionListItem
+            type: App\Application\Query\ContactSubmissionListItem
+            groups: [ 'Default' ]
+          - alias: ContactSubmissionsResponse
+            type: App\UserInterface\Web\Response\ContactSubmissionsResponse
+            groups: [ 'Default' ]

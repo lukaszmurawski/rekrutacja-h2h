@@ -26,7 +26,6 @@ services:
     - ./symfony:/var/www/html
     command: ["sh", "/usr/local/bin/docker/entrypoint.sh", "php-fpm"]
     environment:
-      APP_ENV: dev
       COMPOSER_CACHE_DIR: '/tmp/composer-cache'
       DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}?serverVersion=${POSTGRES_VERSION}&charset=utf8"
     depends_on:

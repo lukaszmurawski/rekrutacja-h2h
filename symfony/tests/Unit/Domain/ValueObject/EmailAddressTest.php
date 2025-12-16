@@ -16,14 +16,14 @@ final class EmailAddressTest extends TestCase
         $validEmail = 'test.user@example.com';
         $emailAddress = new EmailAddress($validEmail);
 
-        $this->assertSame($validEmail, $emailAddress->getValue());
-        $this->assertSame($validEmail, (string) $emailAddress);
+        self::assertSame($validEmail, $emailAddress->getValue());
+        self::assertSame($validEmail, (string) $emailAddress);
     }
 
     #[DataProvider('provideInvalidEmails')]
     public function testThrowsExceptionForInvalidEmail(string $invalidEmail): void
     {
-        $this->expectException(InvalidEmailException::class);
+        self::expectException(InvalidEmailException::class);
         new EmailAddress($invalidEmail);
     }
 
@@ -33,23 +33,21 @@ final class EmailAddressTest extends TestCase
         $email2 = new EmailAddress('same@example.com');
         $email3 = new EmailAddress('different@example.com');
 
-        $this->assertTrue($email1->equals($email2), 'Should be equal.');
-        $this->assertFalse($email1->equals($email3), 'Should not be equal.');
+        self::assertTrue($email1->equals($email2), 'Should be equal.');
+        self::assertFalse($email1->equals($email3), 'Should not be equal.');
     }
 
     /**
-     * @return array<string, array<string>>
+     * @return iterable<string, array<string>>
      */
-    public static function provideInvalidEmails(): array
+    public static function provideInvalidEmails(): iterable
     {
-        return [
-            'empty string' => [''],
-            'at is missing' => ['test.example.com'],
-            'incorrect format' => ['test@.com'],
-            'white space' => ['test @example.com'],
-            'special char' => ['te$st@example.com'],
-            'missing domain' => ['user@'],
-            'missing local part' => ['@example.com'],
-        ];
+        yield 'empty string' => [''];
+        yield 'at is missing' => ['test.example.com'];
+        yield 'incorrect format' => ['test@.com'];
+        yield 'white space' => ['test @example.com'];
+        yield 'special char' => ['te)st@example.com'];
+        yield 'missing domain' => ['user@'];
+        yield 'missing local part' => ['@example.com'];
     }
 }
