@@ -28,3 +28,9 @@ docker compose exec symfony composer test
 ```bash
 docker compose exec symfony composer coverage
 ```
+
+## API
+Dostępne pod adresem `http://localhost:8000/`
+
+## Dokumentacja API
+Dostępna pod adresem `http://localhost:8000/api/doc`
