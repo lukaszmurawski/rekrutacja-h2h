@@ -19,7 +19,7 @@ final class EmailAddress
     public function __construct(string $email)
     {
         if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new InvalidEmailException(sprintf('Adres e-mail "%s" jest nieprawidłowy.', $email));
+            throw new InvalidEmailException(sprintf('E-mail address "%s" is invalid.', $email));
         }
         $this->email = $email;
     }
