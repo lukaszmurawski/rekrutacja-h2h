@@ -20,17 +20,31 @@ cd rekrutacja-h2h
 ```
 
 ## Odpalenie testów
+Gdy kontener jest uruchomiony
 ```bash
 docker compose exec symfony composer test
 ```
 
 ### Odpalanie coverage
+Gdy kontener jest uruchomiony
 ```bash
 docker compose exec symfony composer coverage
 ```
+Wynik dostępny w podfolderze projektu: `symfony/var/coverage/index.html`
 
 ## API
-Dostępne pod adresem `http://localhost:8000/`
+Dostępne pod adresem `http://localhost:8000/api`
 
 ## Dokumentacja API
 Dostępna pod adresem `http://localhost:8000/api/doc`
+
+## Podnoszenie i zatrzymywanie kontenerów
+Podnoszenie
+```bash
+docker compose up -d
+```
+
+Zatrzymywanie
+```bash
+docker compose down
+```
