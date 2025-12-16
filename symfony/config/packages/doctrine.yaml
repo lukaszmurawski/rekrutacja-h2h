@@ -10,6 +10,7 @@ doctrine:
         use_savepoints: true
     orm:
         auto_generate_proxy_classes: true
+        repository_factory: 'doctrine.orm.container_repository_factory'
         enable_lazy_ghost_objects: true
         report_fields_where_declared: true
         validate_xml_mapping: true
@@ -21,8 +22,8 @@ doctrine:
             App:
                 type: attribute
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
+                dir: '%kernel.project_dir%/src/Domain'
+                prefix: 'App\Domain'
                 alias: App
         controller_resolver:
             auto_mapping: false
