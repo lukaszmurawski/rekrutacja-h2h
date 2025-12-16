@@ -2,20 +2,22 @@ version: "3.8"
 
 services:
   db:
-    image: postgres:15
+    image: postgres:${POSTGRES_VERSION:-16}-alpine
     restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: form_app
+      POSTGRES_USER: ${POSTGRES_USER:-form_app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-SomeR4nd0mPassword2313}
+      POSTGRES_DB: ${POSTGRES_DB:-form_app}
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD", "pg_isready", "-d", "${POSTGRES_DB:-form_app}", "-U", "${POSTGRES_USER:-form_app}"]
       interval: 5s
       timeout: 5s
       retries: 5
       start_period: 10s
+    volumes:
+      - database_data:/var/lib/postgresql/data:rw
 
   symfony:
     build: ./symfony
@@ -25,6 +27,7 @@ services:
     command: ["sh", "/usr/local/bin/docker/entrypoint.sh", "php-fpm"]
     environment:
       APP_ENV: dev
+      COMPOSER_CACHE_DIR: '/tmp/composer-cache'
       DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}?serverVersion=${POSTGRES_VERSION}&charset=utf8"
     depends_on:
       db:
@@ -41,3 +44,6 @@ services:
       - ./symfony:/var/www/html
     depends_on:
       - symfony
+
+volumes:
+  database_data:
