@@ -375,11 +375,11 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *         throw_exception_on_invalid_property_path?: bool, // Default: true
  *     },
  *     type_info?: bool|array{ // Type info configuration
- *         enabled?: bool, // Default: false
+ *         enabled?: bool, // Default: true
  *         aliases?: array<string, scalar|null>,
  *     },
  *     property_info?: bool|array{ // Property info configuration
- *         enabled?: bool, // Default: false
+ *         enabled?: bool, // Default: true
  *         with_constructor_extractor?: bool, // Registers the constructor extractor.
  *     },
  *     cache?: array{ // Cache configuration
